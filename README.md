@@ -1,8 +1,5 @@
-# MyReads Project
-
-This is the starter template for the final assessment project for Udacity's React Fundamentals course. The goal of this template is to save you time by providing a static example of the CSS and HTML markup that may be used, but without any of the React code that is needed to complete the project. If you choose to start with this template, your job will be to add interactivity to the app by refactoring the static code in this template.
-
-Of course, you are free to start this project from scratch if you wish! Just be sure to use [Create React App](https://github.com/facebookincubator/create-react-app) to bootstrap the project.
+# MyReads
+MyReads is a basic web app that helps you organize and improve your reading life, you can add your currently reading books, the books you want to read later, and the books you've already read. You can also find new books to add to your library for later use.  
 
 ## TL;DR
 
@@ -11,82 +8,146 @@ To get started developing right away:
 * install all project dependencies with `npm install`
 * start the development server with `npm start`
 
-## What You're Getting
+## File Structure
 ```bash
 ├── CONTRIBUTING.md
 ├── README.md - This file.
-├── SEARCH_TERMS.md # The whitelisted short collection of available search terms for you to use with your app.
-├── package.json # npm package manager file. It's unlikely that you'll need to modify this.
+├── package.json # npm package manager file. 
 ├── public
 │   ├── favicon.ico # React Icon, You may change if you wish.
 │   └── index.html # DO NOT MODIFY
 └── src
-    ├── App.css # Styles for your app. Feel free to customize this as you desire.
-    ├── App.js # This is the root of your app. Contains static HTML right now.
-    ├── App.test.js # Used for testing. Provided with Create React App. Testing is encouraged, but not required.
-    ├── BooksAPI.js # A JavaScript API for the provided Udacity backend. Instructions for the methods are below.
-    ├── icons # Helpful images for your app. Use at your discretion.
+    ├── App.css # Styles for the app.
+    ├── App.js # This is the root of the app. Contains the basic functionallity of the app.
+    ├── App.test.js # Used for testing. Provided with Create React App.
+    ├── BooksAPI.js # A JavaScript API for the provided Udacity backend. 
+    ├── BookShelf.js # A Class-based component to render a whole shelf section
+    ├── Book.js #  A CBC to render a single book "used in BookShelf.js"
+    ├── ListBooks.js #  A CBC that contains a composition of BookShelf components that has Books in it, used on homepage
+    ├── SearchBooks.js # A CBC to render the entire search page
+    ├── icons # Helpful images for your app.
     │   ├── add.svg
     │   ├── arrow-back.svg
     │   └── arrow-drop-down.svg
-    ├── index.css # Global styles. You probably won't need to change anything here.
-    └── index.js # You should not need to modify this file. It is used for DOM rendering only.
+    ├── index.css # Global styles. 
+    └── index.js # Used for DOM rendering only.
 ```
 
-Remember that good React design practice is to create new JS files for each component and use import/require statements to include them where they are needed.
+## App.js
 
-## Backend Server
+The main component based class that has the functions to maintain the behavior of the app.
 
-To simplify your development process, we've provided a backend server for you to develop against. The provided file [`BooksAPI.js`](src/BooksAPI.js) contains the methods you will need to perform necessary operations on the backend:
+* [`componentDidMount`](#componentDidMount)
+* [`updateBook`](#updateBook)
 
-* [`getAll`](#getall)
-* [`update`](#update)
-* [`search`](#search)
-
-### `getAll`
+### `componentDidMount`
 
 Method Signature:
 
 ```js
-getAll()
+componentDidMount()
 ```
 
-* Returns a Promise which resolves to a JSON object containing a collection of book objects.
-* This collection represents the books currently in the bookshelves in your app.
+* This method is invoked immediately after the component is mounted, specifically used to make network requests, fetching the current user's books data. 
 
-### `update`
+### `updateBook`
 
 Method Signature:
 
 ```js
-update(book, shelf)
+updateBook(book, shelf)
 ```
 
-* book: `<Object>` containing at minimum an `id` attribute
-* shelf: `<String>` contains one of ["wantToRead", "currentlyReading", "read"]  
-* Returns a Promise which resolves to a JSON object containing the response data of the POST request
+* book: `<Object>` is the selected book.
+* shelf: `<String>` is the desired shelf to move the book to.
+* Used to update the book's status if the user wants to move the book to another shelf, used in Book.handleShelfOnChange()
 
-### `search`
+--------------------------------------------------------------------------------------------------------
+
+## SearchBooks.js
+
+A class based component, its purpose to render the whole search page, contains the basic functionality of a basic search web page.
+
+* [`onChangeHandler`](#onChangeHandler)
+* [`searchBooks`](#searchBooks)
+* [`getBookById`](#getBookById)
+* [`assignShelfsToSearchResults`](#assignShelfsToSearchResults)
+* [`debounce`](#debounce)
+
+### `onChangeHandler`
 
 Method Signature:
 
 ```js
-search(query)
+onChangeHandler(event)
 ```
 
-* query: `<String>`
-* Returns a Promise which resolves to a JSON object containing a collection of a maximum of 20 book objects.
-* These books do not know which shelf they are on. They are raw results only. You'll need to make sure that books have the correct state while on the search page.
+* event: `<Object>` contains the `value` of the search query.
+* invokes `setState` to update the search query as the user types.
+* invokes `searchBooks` to make fetch requests as the user types.
 
-## Important
-The backend API uses a fixed set of cached search results and is limited to a particular set of search terms, which can be found in [SEARCH_TERMS.md](SEARCH_TERMS.md). That list of terms are the _only_ terms that will work with the backend, so don't be surprised if your searches for Basket Weaving or Bubble Wrap don't come back with any results.
+### `searchBooks`
 
-## Create React App
+Method Signature:
 
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). You can find more information on how to perform common tasks [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
+```js
+searchBooks(keyword)
+```
 
-## Contributing
+* keyword: `<String>` is the current search query.
+* This method fetches books data as the user types, calls `setState` to trigger a rerender to display new results in real-time.
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+### `getBookById`
 
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+Method Signature:
+
+```js
+getBookById(id)
+```
+
+* id: `<string>` an ID of a book.
+* A helper method used to get books by id, note that it is used to get books from the current user's shelves, not from the search results.
+* used in `SearchBooks.assignShelfsToSearchResults()`
+
+### `assignShelfsToSearchResults`
+
+Method Signature:
+
+```js
+assignShelfsToSearchResults(searchResults)
+```
+
+* searchResults: `<Array>` contains the search results passed by `SearchBooks.searchBooks()`
+* This method is responsible for assigning current users' books shelves to searchResults books, which means if the user has a current book in the library and at the same time in the search page, it'll display the current book's shelf.
+
+### `debounce`
+
+Method Signature:
+
+```js
+debounce(func, delay, keyword)
+```
+
+* func: `<function>` A callback function that will be controlled of how many milliseconds should fire after, used for `SearchBooks.onChangeHandler()`.
+* delay: `<int>` The amount of time that the callback function will run after the user stops typing in the search field.
+* keyword: `<string>` An argument to be passed to the callback function later.
+* This function tunes down the times of handling triggered events into lesser times, this solves the problem of sending fetching requests on every typed character. 
+
+----------------------------------------------------------------------------------------------
+## Book.js
+
+A class based component, its purpose is to render a single book at a time. Used in BookShlef.js
+
+* [`handleShelfOnChange`](#handleShelfOnChange)
+
+### `handleShelfOnChange`
+
+Method Signature:
+
+```js
+handleShelfOnChange(event)
+```
+
+* event: `<Object>` contains the `value` of the new wanted shelf
+* This method invokes App.updateBook method which updates the current shelf of the book. 
+

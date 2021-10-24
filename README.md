@@ -1,7 +1,7 @@
 # MyReads
-MyReads is a basic web app that helps you organize and improve your reading life, you can add your currently reading books, the books you want to read later, and the books you've already read. You can also find new books to add to your library for later use.  
+MyReads is a basic web app that helps you organize and improve book like good reads, you can add your currently reading books, the books you want to read later, and the books you've already read. You can also find new books to add to your library for later use.  
 
-## TL;DR
+## 
 
 To get started developing right away:
 
@@ -64,7 +64,7 @@ updateBook(book, shelf)
 
 --------------------------------------------------------------------------------------------------------
 
-## SearchBooks.js
+## SearchBooks.jsx
 
 A class based component, its purpose to render the whole search page, contains the basic functionality of a basic search web page.
 
@@ -122,7 +122,7 @@ assignShelfsToSearchResults(searchResults)
 
 
 ----------------------------------------------------------------------------------------------
-## Book.js
+## Book.jsx
 
 A class based component, its purpose is to render a single book at a time. Used in BookShlef.js
 

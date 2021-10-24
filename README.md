@@ -60,7 +60,7 @@ updateBook(book, shelf)
 
 * book: `<Object>` is the selected book.
 * shelf: `<String>` is the desired shelf to move the book to.
-* Used to update the book's status if the user wants to move the book to another shelf, used in Book.handleShelfOnChange()
+* Used to update the book's status if the user wants to move the book to another shelf, used in Book.updatedShelf()
 
 --------------------------------------------------------------------------------------------------------
 
@@ -126,14 +126,14 @@ addShelf(searchResults)
 
 A class based component, its purpose is to render a single book at a time. Used in BookShlef.js
 
-* [`handleShelfOnChange`](#handleShelfOnChange)
+* [`updatedShelf`](#updatedShelf)
 
-### `handleShelfOnChange`
+### `updatedShelf`
 
 Method Signature:
 
 ```js
-handleShelfOnChange(event)
+updatedShelf(event)
 ```
 
 * event: `<Object>` contains the `value` of the new wanted shelf

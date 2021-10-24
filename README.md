@@ -72,7 +72,7 @@ A class based component, its purpose to render the whole search page, contains t
 * [`searchBooks`](#searchBooks)
 * [`getBookById`](#getBookById)
 * [`assignShelfsToSearchResults`](#assignShelfsToSearchResults)
-* [`debounce`](#debounce)
+
 
 ### `onChangeHandler`
 
@@ -120,18 +120,6 @@ assignShelfsToSearchResults(searchResults)
 * searchResults: `<Array>` contains the search results passed by `SearchBooks.searchBooks()`
 * This method is responsible for assigning current users' books shelves to searchResults books, which means if the user has a current book in the library and at the same time in the search page, it'll display the current book's shelf.
 
-### `debounce`
-
-Method Signature:
-
-```js
-debounce(func, delay, keyword)
-```
-
-* func: `<function>` A callback function that will be controlled of how many milliseconds should fire after, used for `SearchBooks.onChangeHandler()`.
-* delay: `<int>` The amount of time that the callback function will run after the user stops typing in the search field.
-* keyword: `<string>` An argument to be passed to the callback function later.
-* This function tunes down the times of handling triggered events into lesser times, this solves the problem of sending fetching requests on every typed character. 
 
 ----------------------------------------------------------------------------------------------
 ## Book.js

@@ -1,7 +1,7 @@
 # MyReads
 MyReads is a basic web app that helps you organize and improve book like good reads, you can add your currently reading books, the books you want to read later, and the books you've already read. You can also find new books to add to your library for later use. 
 
-[MyReads live](https://6175c850ba2adf50b1c00149--thirsty-meitner-c08875.netlify.app/search)
+[MyReads live](https://6175c850ba2adf50b1c00149--thirsty-meitner-c08875.netlify.app/)
 
 ## 
 

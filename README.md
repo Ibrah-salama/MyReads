@@ -71,7 +71,7 @@ A class based component, its purpose to render the whole search page, contains t
 * [`onChangeHandler`](#onChangeHandler)
 * [`searchBooks`](#searchBooks)
 * [`getBookById`](#getBookById)
-* [`assignShelfsToSearchResults`](#assignShelfsToSearchResults)
+* [`addShelf`](#addShelf)
 
 
 ### `onChangeHandler`
@@ -107,14 +107,14 @@ getBookById(id)
 
 * id: `<string>` an ID of a book.
 * A helper method used to get books by id, note that it is used to get books from the current user's shelves, not from the search results.
-* used in `SearchBooks.assignShelfsToSearchResults()`
+* used in `SearchBooks.addShelf()`
 
-### `assignShelfsToSearchResults`
+### `addShelf`
 
 Method Signature:
 
 ```js
-assignShelfsToSearchResults(searchResults)
+addShelf(searchResults)
 ```
 
 * searchResults: `<Array>` contains the search results passed by `SearchBooks.searchBooks()`

@@ -3,13 +3,29 @@ import { Link } from 'react-router-dom'
 import {  search } from './BooksAPI'
 import Book from './Book'
 
+let timeout;
 class Search extends React.Component {
     state = {
         query : '',
         result: []
     }
-    onChangeHandler = (e) => this.setState({ query: e.target.value })
+    onChangeHandler = (e) =>{
+         this.setState({ query: e.target.value })
+         this.debounce(this.searchBooks, 300, e.target.value)()
+        }
     
+    debounce = (func, delay, keyword) => {
+        return function (){
+            if(timeout){
+                clearTimeout(timeout);
+            }
+            timeout = setTimeout(() => {
+                func(keyword);
+            }, delay);
+        }
+    };
+
+
     searchBooks = async (keyword) => {
         if(keyword !== ''){
             const result = await search(keyword)
